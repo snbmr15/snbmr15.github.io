@@ -28,7 +28,13 @@ window.onload = function() { // upon window loaded
     context = board.getContext("2d"); // used for drawing on the board.
 
     // draw flappy bird
-    context.fillStyle = "green"; // similar to background-color 
+    // context.fillStyle = "green"; // similar to background-color 
     context.fillRect(bird.x, bird.y, bird.width, bird.height); //fills up green to the respective keys of the bird object
 
+    // load images
+    birdImg = new Image();
+    birdImg.src = "https://raw.githubusercontent.com/ImKennyYip/flappy-bird/master/flappybird.png";
+    birdImg.onload = function () { // without this, the image will not be loading onto the canvas
+        context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height); // extra attribute of the "referenced image" projected onto the bird object
+    }
 }
