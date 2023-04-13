@@ -83,6 +83,10 @@ function update() { // this function will centralise all frame updates of the el
     bird.y = Math.max(bird.y + velocityY, 0); // apply gravity to current bird.y, limit the bird to the top of the canvas
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
+    if (bird.y > board.height) { // if the bird falls to the ground
+        gameOver = true;
+    }
+
     // pipes
     for (let i = 0; i < pipeArray.length; i++) {
         let pipe = pipeArray[i]; // calling out each element of the pipe in the array
