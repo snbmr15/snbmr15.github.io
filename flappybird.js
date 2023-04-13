@@ -62,6 +62,8 @@ window.onload = function() { // upon window loaded
     requestAnimationFrame(update); // refreshes the frame rate
     setInterval(placePipes, 1500); // spawns pipes at the certain amount of seconds
 
+    document.addEventListener("keydown", moveBird); // for every key down, moveBird function will be called
+
 }
 
 function update() { // this function will centralise all frame updates of the elements
@@ -116,4 +118,11 @@ function placePipes() { // spawning of pipes
 
     pipeArray.push(bottomPipe); // adds into the array    
 
+}
+
+function moveBird(event) {
+    if (event.code == "Space" || event.code == "ArrowUp") {
+        // jump
+        velocityY = -6;
+    }
 }
