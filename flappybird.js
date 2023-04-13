@@ -21,6 +21,16 @@ let bird = {
     height : birdHeight,
 }
 
+// pipes
+let pipeArray = [];
+let pipeWidth = 64;
+let pipeHeight = 512;
+let pipeX = boardWidth;
+let pipeY = 0;
+
+let topPipeImg;
+let bottomPipeImg;
+
 window.onload = function() { // upon window loaded
     board = document.getElementById("board"); // getting DOM element and placing it under a variable.
     board.height = boardHeight; // setting the height to the inital, 640.
@@ -37,4 +47,12 @@ window.onload = function() { // upon window loaded
     birdImg.onload = function () { // without this, the image will not be loading onto the canvas
         context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height); // extra attribute of the "referenced image" projected onto the bird object
     }
+
+    topPipeImg = new Image();
+    topPipeImg.src = "https://raw.githubusercontent.com/ImKennyYip/flappy-bird/master/toppipe.png";
+
+    bottomPipeImg = new Image();
+    bottomPipeImg.src = "https://raw.githubusercontent.com/ImKennyYip/flappy-bird/master/bottompipe.png";
+
+    
 }
