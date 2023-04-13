@@ -31,6 +31,11 @@ let pipeY = 0;
 let topPipeImg;
 let bottomPipeImg;
 
+// game physics
+let velocityX = -2; //pipes moving left
+let velocityY = 0; // bird jump speed
+let gravity = 0.4;
+
 window.onload = function() { // upon window loaded
     board = document.getElementById("board"); // getting DOM element and placing it under a variable.
     board.height = boardHeight; // setting the height to the inital, 640.
@@ -62,6 +67,23 @@ window.onload = function() { // upon window loaded
 function update() { // this function will centralise all frame updates of the elements
     requestAnimationFrame(update);
 
+    // draw bird
+    velocityY += gravity;
+    // bird.y += velocityY; // the bird is able to jump out of canvas and fall back in, vice versa
+    bird.y = Math.max(bird.y + velocityY, 0); // apply gravity to current bird.y, limit the bird to the top of the canvas
+    context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
+
+    // pipes
+    for (let i = 0; i < pipeArray.length; i++) {
+        let pipe = pipeArray[i]; // calling out each element of the pipe in the array
+        pipe.x += velocityX; // keeps shifting the pipes 2px to the left
+        context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height); // draws out the pipes
+    }
+
+    // clear Pipes
+    while (pipeArray.length > 0 && pipeArray[0].x < -pipeWidth) {
+        pipeArray.shift(); // removes the first element of the array
+    }
 }
 
 function placePipes() { // spawning of pipes
