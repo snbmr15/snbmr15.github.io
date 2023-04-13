@@ -54,5 +54,44 @@ window.onload = function() { // upon window loaded
     bottomPipeImg = new Image();
     bottomPipeImg.src = "https://raw.githubusercontent.com/ImKennyYip/flappy-bird/master/bottompipe.png";
 
-    
+    requestAnimationFrame(update); // refreshes the frame rate
+    setInterval(placePipes, 1500); // spawns pipes at the certain amount of seconds
+
+}
+
+function update() { // this function will centralise all frame updates of the elements
+    requestAnimationFrame(update);
+
+}
+
+function placePipes() { // spawning of pipes
+
+    // (0-1) * pipeHeight/2
+    // 0 -> -123 (pipeHeight/4)
+    // 1 -> -128 - 256 (pipeHeight/4 - pipeHeight/2) = -3/4 pipeHeight
+    let randomPipeY = pipeY - pipeHeight/4 - Math.random()*(pipeHeight/2); // shifts the pipe upwards out of the canvas
+    let openingSpace = board.height/4;
+
+    let topPipe = { 
+        img : topPipeImg,
+        x : pipeX,
+        y : randomPipeY,
+        width : pipeWidth,
+        height : pipeHeight,
+
+    }
+
+    pipeArray.push(topPipe); // adds into the array
+
+    let bottomPipe = { 
+        img : bottomPipeImg,
+        x : pipeX,
+        y : randomPipeY + pipeHeight + openingSpace,
+        width : pipeWidth,
+        height : pipeHeight,
+
+    }
+
+    pipeArray.push(bottomPipe); // adds into the array    
+
 }
