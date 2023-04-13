@@ -36,6 +36,7 @@ let velocityX = -2; //pipes moving left
 let velocityY = 0; // bird jump speed
 let gravity = 0.4;
 
+let gameOver = false;
 let score = 0;
 
 window.onload = function() { // upon window loaded
@@ -71,6 +72,11 @@ window.onload = function() { // upon window loaded
 function update() { // this function will centralise all frame updates of the elements
     requestAnimationFrame(update);
 
+    if (gameOver) {
+        return;
+    }
+    context.clearRect(0,0, board.width, board.height); // resets to the beginning of the game
+
     // draw bird
     velocityY += gravity;
     // bird.y += velocityY; // the bird is able to jump out of canvas and fall back in, vice versa
@@ -101,9 +107,17 @@ function update() { // this function will centralise all frame updates of the el
     context.fillStyle = "white";
     context.font = "45px sans-serif";
     context.fillText(score, 5, 45);
+
+    if (gameOver) {
+        context.fillText("GAME OVER", 5, 90);
+    }
 }
 
 function placePipes() { // spawning of pipes
+
+    if (gameOver) {
+        return;
+    }
 
     // (0-1) * pipeHeight/2
     // 0 -> -123 (pipeHeight/4)
@@ -139,6 +153,14 @@ function moveBird(event) {
     if (event.code == "Space" || event.code == "ArrowUp") {
         // jump
         velocityY = -6;
+
+       //reset game
+       if (gameOver) {
+        bird.y = birdY;
+        pipeArray = [];
+        score = 0;
+        gameOver = false;
+    } 
     }
 }
 
