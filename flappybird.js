@@ -36,6 +36,8 @@ let velocityX = -2; //pipes moving left
 let velocityY = 0; // bird jump speed
 let gravity = 0.4;
 
+let score = 0;
+
 window.onload = function() { // upon window loaded
     board = document.getElementById("board"); // getting DOM element and placing it under a variable.
     board.height = boardHeight; // setting the height to the inital, 640.
@@ -80,12 +82,25 @@ function update() { // this function will centralise all frame updates of the el
         let pipe = pipeArray[i]; // calling out each element of the pipe in the array
         pipe.x += velocityX; // keeps shifting the pipes 2px to the left
         context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height); // draws out the pipes
+
+        if (!pipe.passed && bird.x > pipe.x + pipe.width) {
+            score += 0.5; // as there are 2 pipes. 
+            pipe.passed = true;
+        }
+        if (detectCollisions(bird, pipe)) {
+            gameOver = true;
+        }
     }
 
     // clear Pipes
     while (pipeArray.length > 0 && pipeArray[0].x < -pipeWidth) {
         pipeArray.shift(); // removes the first element of the array
     }
+
+    // score
+    context.fillStyle = "white";
+    context.font = "45px sans-serif";
+    context.fillText(score, 5, 45);
 }
 
 function placePipes() { // spawning of pipes
@@ -102,7 +117,7 @@ function placePipes() { // spawning of pipes
         y : randomPipeY,
         width : pipeWidth,
         height : pipeHeight,
-
+        passed : false //checks if the flappy bird has passed the pipe
     }
 
     pipeArray.push(topPipe); // adds into the array
@@ -113,7 +128,7 @@ function placePipes() { // spawning of pipes
         y : randomPipeY + pipeHeight + openingSpace,
         width : pipeWidth,
         height : pipeHeight,
-
+        passed : false //checks if the flappy bird has passed the pipe
     }
 
     pipeArray.push(bottomPipe); // adds into the array    
@@ -125,4 +140,11 @@ function moveBird(event) {
         // jump
         velocityY = -6;
     }
+}
+
+function detectCollisions(a,b) {
+    return a.x < b.x + b.width && 
+    a.x + a.width > b.x && 
+    a.y < b.y + b.height && 
+    a.y + a.height > b.y;
 }
