@@ -106,6 +106,10 @@ function update() { // this function will centralise all frame updates of the el
             // pipe.width = 64px
             score += 0.5; // as there are 2 pipes. 
             pipe.passed = true;
+            if (score % 5 === 0) {
+                console.log("speed increased!")
+                velocityX = velocityX + -0.5;                
+            }
         }
         if (detectCollisions(bird, pipe)) {
             gameOver = true;
