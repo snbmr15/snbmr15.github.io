@@ -51,16 +51,16 @@ window.onload = function() { // upon window loaded
 
     // load images
     birdImg = new Image();
-    birdImg.src = "https://raw.githubusercontent.com/ImKennyYip/flappy-bird/master/flappybird.png";
+    birdImg.src = "https://gcdnb.pbrd.co/images/I7MaI9anW43F.png?o=1";
     birdImg.onload = function () { // without this, the image will not be loading onto the canvas
         context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height); // extra attribute of the "referenced image" projected onto the bird object
     }
 
     topPipeImg = new Image();
-    topPipeImg.src = "https://raw.githubusercontent.com/ImKennyYip/flappy-bird/master/toppipe.png";
+    topPipeImg.src = "https://gcdnb.pbrd.co/images/omoucOPFOZTr.png?o=1";
 
     bottomPipeImg = new Image();
-    bottomPipeImg.src = "https://raw.githubusercontent.com/ImKennyYip/flappy-bird/master/bottompipe.png";
+    bottomPipeImg.src = "https://gcdnb.pbrd.co/images/TEt2jiJH2LWE.png?o=1";
 
     requestAnimationFrame(update); // refreshes the frame rate
     setInterval(placePipes, 1500); // spawns pipes at the certain amount of seconds
